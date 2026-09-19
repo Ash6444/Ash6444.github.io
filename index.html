@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sarathkumar Desappan — Mechanical Engineer</title>
+<meta name="description" content="Portfolio of Desappan Sarathkumar — Mechanical & CAD Engineer with 11+ years in design, manufacturing, assembly and automotive maintenance. Tokyo, Japan.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07090d;
+  --bg-soft:#0b0f16;
+  --surface:#0e141d;
+  --surface-2:#111927;
+  --line:rgba(148,163,184,.12);
+  --line-strong:rgba(148,163,184,.22);
+  --ink:#e8ebf2;
+  --ink-soft:#b6bdcc;
+  --muted:#7d8799;
+  --accent:#ffb648;
+  --accent-deep:#f59e0b;
+  --accent-glow:rgba(255,182,72,.16);
+  --blue:#5b8cff;
+  --radius:18px;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'Inter',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --max:1160px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:var(--accent);color:#0a0c10}
+
+/* ---------- background layers ---------- */
+.bg-grid{
+  position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(148,163,184,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(148,163,184,.045) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,#000 30%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,#000 30%,transparent 100%);
+}
+.bg-glow{
+  position:fixed;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(120px);opacity:.5;
+}
+.bg-glow.one{width:640px;height:640px;top:-260px;left:50%;transform:translateX(-50%);background:radial-gradient(circle,var(--accent-glow),transparent 65%)}
+.bg-glow.two{width:520px;height:520px;top:38%;right:-260px;background:radial-gradient(circle,rgba(91,140,255,.10),transparent 65%)}
+.bg-noise{
+  position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.03 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- nav ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:rgba(7,9,13,.72);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s;
+}
+nav.scrolled{border-bottom-color:var(--line)}
+.nav-inner{
+  max-width:var(--max);margin:0 auto;padding:16px 28px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.logo-mark{
+  width:38px;height:38px;flex:0 0 38px;border-radius:11px;
+  display:grid;place-items:center;
+  font-family:var(--font-display);font-weight:700;font-size:14px;letter-spacing:.02em;
+  background:linear-gradient(135deg,#1a2230,#0d1420);
+  border:1px solid var(--line-strong);
+  color:var(--accent);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+}
+.logo-text{font-family:var(--font-display);font-weight:600;font-size:15px;letter-spacing:.01em}
+.logo-text span{color:var(--muted);font-weight:400}
+.nav-links{display:flex;gap:6px;list-style:none}
+.nav-links a{
+  color:var(--ink-soft);text-decoration:none;font-size:13.5px;font-weight:500;
+  padding:8px 14px;border-radius:999px;transition:color .2s,background .2s;
+}
+.nav-links a:hover{color:var(--ink);background:rgba(148,163,184,.08)}
+.nav-links a.active{color:var(--accent);background:var(--accent-glow)}
+.nav-cta{
+  font-size:13px;font-weight:600;text-decoration:none;color:#0a0c10;
+  background:var(--accent);padding:9px 18px;border-radius:999px;
+  transition:transform .2s,box-shadow .2s;
+}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(255,182,72,.25)}
+.burger{display:none;background:none;border:0;cursor:pointer;flex-direction:column;gap:5px;padding:8px}
+.burger span{width:22px;height:2px;background:var(--ink);border-radius:2px;transition:.3s}
+
+/* ---------- layout ---------- */
+.container{max-width:var(--max);margin:0 auto;padding:0 28px}
+section{padding:110px 0 30px}
+.sec-head{margin-bottom:56px}
+.sec-tag{
+  font-family:var(--font-mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:14px;margin-bottom:18px;
+}
+.sec-tag::after{content:"";height:1px;width:64px;background:linear-gradient(90deg,var(--accent),transparent)}
+.sec-title{
+  font-family:var(--font-display);font-weight:700;
+  font-size:clamp(30px,4.4vw,46px);line-height:1.12;letter-spacing:-.02em;
+}
+.sec-sub{color:var(--muted);max-width:560px;margin-top:14px;font-size:15.5px}
+
+/* ---------- reveal ---------- */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+}
+
+/* ---------- hero ---------- */
+.hero{min-height:100svh;display:flex;flex-direction:column;position:relative;padding:140px 0 0}
+.hero-inner{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center;width:100%;margin:auto;padding-bottom:60px}
+.hero-kicker{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.14em;color:var(--ink-soft);
+  border:1px solid var(--line-strong);border-radius:999px;padding:8px 18px;margin-bottom:30px;
+  background:rgba(148,163,184,.05);
+}
+.pulse{width:8px;height:8px;border-radius:50%;background:#3ddc84;box-shadow:0 0 0 0 rgba(61,220,132,.5);animation:pulse 2.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(61,220,132,.45)}70%{box-shadow:0 0 0 9px rgba(61,220,132,0)}100%{box-shadow:0 0 0 0 rgba(61,220,132,0)}}
+.hero h1{
+  font-family:var(--font-display);font-weight:700;
+  font-size:clamp(44px,7vw,84px);line-height:1.02;letter-spacing:-.03em;
+}
+.hero h1 .grad{
+  background:linear-gradient(100deg,var(--accent) 10%,#ffe0ae 45%,var(--accent-deep) 90%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero-role{margin-top:22px;font-family:var(--font-display);font-weight:500}
+.role-line{
+  font-size:clamp(17px,2vw,21px);color:var(--ink-soft);
+  display:flex;flex-wrap:wrap;align-items:center;gap:12px;white-space:nowrap;
+}
+.role-line .dot{width:4px;height:4px;border-radius:50%;background:var(--muted);flex:0 0 4px}
+.role-focus{
+  margin-top:9px;font-size:14.5px;color:var(--accent);letter-spacing:.03em;
+  display:flex;align-items:center;gap:9px;white-space:nowrap;
+}
+.role-focus svg{width:15px;height:15px;flex:0 0 15px}
+.hero-bio{margin-top:20px;color:var(--muted);max-width:540px;font-size:15.5px}
+.hero-ctas{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;text-decoration:none;
+  font-weight:600;font-size:14.5px;padding:14px 28px;border-radius:999px;
+  transition:transform .2s,box-shadow .2s,background .2s,border-color .2s;
+}
+.btn-primary{background:var(--accent);color:#0a0c10}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(255,182,72,.3)}
+.btn-ghost{border:1px solid var(--line-strong);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.btn svg{width:16px;height:16px}
+
+.hero-stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:56px;max-width:620px;
+}
+.stat{
+  border:1px solid var(--line);border-radius:14px;padding:16px 18px;
+  background:linear-gradient(180deg,rgba(148,163,184,.045),rgba(148,163,184,.015));
+}
+.stat b{font-family:var(--font-display);font-size:26px;font-weight:700;display:block;letter-spacing:-.02em;color:var(--ink)}
+.stat b i{font-style:normal;color:var(--accent);font-size:20px}
+.stat small{color:var(--muted);font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+
+/* hero visual card */
+.hero-card{
+  position:relative;border-radius:24px;overflow:hidden;
+  border:1px solid var(--line-strong);
+  background:
+    radial-gradient(120% 90% at 85% 0%,rgba(255,182,72,.09),transparent 55%),
+    linear-gradient(165deg,#101826 0%,#0a0f18 60%,#0b1019 100%);
+  box-shadow:0 40px 90px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.05);
+  padding:34px 32px;
+}
+.hero-card::before{
+  content:"";position:absolute;inset:0;
+  background-image:linear-gradient(rgba(148,163,184,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(148,163,184,.05) 1px,transparent 1px);
+  background-size:28px 28px;
+  mask-image:radial-gradient(80% 80% at 50% 30%,#000,transparent 90%);
+  -webkit-mask-image:radial-gradient(80% 80% at 50% 30%,#000,transparent 90%);
+}
+.hero-card .corner{position:absolute;width:22px;height:22px;border:2px solid rgba(255,182,72,.5)}
+.hero-card .corner.tl{top:12px;left:12px;border-right:0;border-bottom:0}
+.hero-card .corner.tr{top:12px;right:12px;border-left:0;border-bottom:0}
+.hero-card .corner.bl{bottom:12px;left:12px;border-right:0;border-top:0}
+.hero-card .corner.br{bottom:12px;right:12px;border-left:0;border-top:0}
+.card-top{position:relative;display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:.1em;margin-bottom:26px}
+.card-top .rec{display:flex;align-items:center;gap:8px;color:var(--accent)}
+.card-top .rec::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);animation:blink 1.6s infinite}
+@keyframes blink{50%{opacity:.25}}
+.avatar-ring{
+  position:relative;width:170px;height:170px;margin:6px auto 26px;
+}
+.avatar-ring::before{
+  content:"";position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(var(--accent) 0 25%,rgba(148,163,184,.15) 25% 100%);
+  animation:spin 7s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.avatar-ring::after{content:"";position:absolute;inset:3px;border-radius:50%;background:#0c121c}
+.avatar{
+  position:absolute;inset:14px;border-radius:50%;z-index:1;overflow:hidden;
+  background:#0d1420;
+  border:1px solid var(--line-strong);
+}
+.avatar img{
+  width:100%;height:100%;object-fit:cover;object-position:top center;
+  display:block;filter:saturate(1.05);
+}
+.card-name{text-align:center;font-family:var(--font-display);font-weight:600;font-size:19px;position:relative}
+.card-role{text-align:center;color:var(--muted);font-size:13px;margin-top:4px;position:relative}
+.card-meta{
+  position:relative;margin-top:26px;border-top:1px solid var(--line);padding-top:20px;
+  display:flex;flex-direction:column;gap:12px;
+}
+.meta-row{display:flex;justify-content:space-between;font-size:13px}
+.meta-row span{color:var(--muted)}
+.meta-row b{font-weight:500;color:var(--ink-soft);font-family:var(--font-mono);font-size:12.5px}
+.meta-row b.gold{color:var(--accent)}
+
+/* ---------- marquee ---------- */
+.marquee{
+  margin-top:90px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:18px 0;overflow:hidden;white-space:nowrap;position:relative;
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+}
+.marquee-track{display:inline-flex;gap:0;animation:marquee 30s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+@keyframes marquee{to{transform:translateX(-50%)}}
+.marquee span{
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);padding:0 28px;display:inline-flex;align-items:center;gap:28px;
+}
+.marquee span::after{content:"◆";color:var(--accent);font-size:9px}
+
+/* ---------- about ---------- */
+.about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:start}
+.about-text p{color:var(--ink-soft);margin-bottom:18px;font-size:15.5px}
+.about-text p strong{color:var(--ink);font-weight:600}
+.about-list{list-style:none;display:grid;gap:12px;margin-top:26px}
+.about-list li{
+  display:flex;gap:14px;align-items:flex-start;font-size:14.5px;color:var(--ink-soft);
+  background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 18px;
+  transition:border-color .25s,transform .25s;
+}
+.about-list li:hover{border-color:rgba(255,182,72,.4);transform:translateX(4px)}
+.about-list li svg{flex:0 0 18px;width:18px;height:18px;color:var(--accent);margin-top:2px}
+.fact-card{
+  border:1px solid var(--line-strong);border-radius:var(--radius);
+  background:linear-gradient(170deg,var(--surface-2),var(--surface));
+  padding:30px;position:relative;overflow:hidden;
+}
+.fact-card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+}
+.fact-card h3{font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.fact-card h3 svg{width:17px;height:17px;color:var(--accent)}
+.fact{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+.fact:last-child{border-bottom:0}
+.fact span{color:var(--muted)}
+.fact b{font-weight:500;text-align:right;color:var(--ink-soft);font-family:var(--font-mono);font-size:12.5px}
+.fact b.gold{color:var(--accent)}
+
+/* ---------- skills ---------- */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.skill-card{
+  position:relative;border:1px solid var(--line);border-radius:var(--radius);
+  background:linear-gradient(180deg,rgba(148,163,184,.045),rgba(148,163,184,.012));
+  padding:26px;overflow:hidden;
+  transition:transform .3s,border-color .3s,box-shadow .3s;
+}
+.skill-card:hover{transform:translateY(-5px);border-color:rgba(255,182,72,.45);box-shadow:0 20px 44px rgba(0,0,0,.4)}
+.skill-card::after{
+  content:"";position:absolute;right:-40px;top:-40px;width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle,var(--accent-glow),transparent 70%);opacity:0;transition:opacity .3s;
+}
+.skill-card:hover::after{opacity:1}
+.skill-icon{
+  width:46px;height:46px;border-radius:13px;display:grid;place-items:center;margin-bottom:18px;
+  background:linear-gradient(135deg,#1a2333,#101827);border:1px solid var(--line-strong);color:var(--accent);
+}
+.skill-icon svg{width:22px;height:22px}
+.skill-card h3{font-family:var(--font-display);font-size:16.5px;font-weight:600}
+.skill-card p{font-size:13.5px;color:var(--muted);margin-top:7px}
+.skill-lvl{margin-top:18px;height:4px;border-radius:99px;background:rgba(148,163,184,.14);overflow:hidden}
+.skill-lvl i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--accent-deep),var(--accent));width:0;transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+.in .skill-lvl i{width:var(--w)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}
+.chip{
+  font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;color:var(--ink-soft);
+  border:1px solid var(--line);border-radius:999px;padding:8px 16px;background:rgba(148,163,184,.04);
+  transition:border-color .25s,color .25s;
+}
+.chip:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ---------- experience timeline ---------- */
+.timeline{position:relative;padding-left:44px;max-width:880px}
+.timeline::before{
+  content:"";position:absolute;left:11px;top:6px;bottom:6px;width:2px;
+  background:linear-gradient(180deg,var(--accent),rgba(255,182,72,.15) 40%,rgba(148,163,184,.12));
+}
+.tl-item{position:relative;margin-bottom:34px}
+.tl-item:last-child{margin-bottom:0}
+.tl-node{
+  position:absolute;left:-44px;top:26px;width:24px;height:24px;border-radius:50%;
+  background:var(--bg);border:2px solid var(--line-strong);display:grid;place-items:center;
+  transition:border-color .3s,box-shadow .3s;
+}
+.tl-node::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--muted);transition:.3s}
+.tl-item:hover .tl-node{border-color:var(--accent);box-shadow:0 0 0 6px var(--accent-glow)}
+.tl-item:hover .tl-node::after{background:var(--accent)}
+.tl-item.current .tl-node{border-color:var(--accent)}
+.tl-item.current .tl-node::after{background:var(--accent);animation:blink 1.8s infinite}
+.tl-card{
+  border:1px solid var(--line);border-radius:var(--radius);
+  background:linear-gradient(180deg,rgba(148,163,184,.04),rgba(148,163,184,.012));
+  padding:28px 30px;
+  transition:transform .3s,border-color .3s,box-shadow .3s;
+}
+.tl-item:hover .tl-card{transform:translateX(6px);border-color:var(--line-strong);box-shadow:0 18px 44px rgba(0,0,0,.35)}
+.tl-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 18px;margin-bottom:6px}
+.tl-head h3{font-family:var(--font-display);font-size:19px;font-weight:600;letter-spacing:-.01em}
+.tl-period{
+  margin-left:auto;font-family:var(--font-mono);font-size:12px;color:var(--accent);
+  border:1px solid rgba(255,182,72,.3);background:var(--accent-glow);
+  padding:5px 13px;border-radius:999px;white-space:nowrap;
+}
+.tl-sub{color:var(--ink-soft);font-size:14.5px;font-weight:500}
+.tl-sub .loc{color:var(--muted);font-weight:400;font-family:var(--font-mono);font-size:12.5px}
+.tl-card ul{list-style:none;margin-top:16px;display:grid;gap:9px}
+.tl-card li{
+  position:relative;padding-left:20px;font-size:14px;color:var(--muted);
+}
+.tl-card li::before{content:"";position:absolute;left:2px;top:9px;width:6px;height:6px;border-radius:2px;background:var(--accent);opacity:.75;transform:rotate(45deg)}
+.tl-card li strong{color:var(--ink-soft);font-weight:500}
+
+/* ---------- education ---------- */
+.edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.edu-card{
+  border:1px solid var(--line);border-radius:var(--radius);padding:28px;
+  background:linear-gradient(180deg,rgba(148,163,184,.04),rgba(148,163,184,.01));
+  position:relative;overflow:hidden;
+  transition:transform .3s,border-color .3s;
+}
+.edu-card:hover{transform:translateY(-5px);border-color:rgba(91,140,255,.4)}
+.edu-num{
+  position:absolute;top:18px;right:22px;font-family:var(--font-display);font-weight:700;font-size:44px;
+  color:transparent;-webkit-text-stroke:1px rgba(148,163,184,.2);
+}
+.edu-card h3{font-family:var(--font-display);font-size:17px;font-weight:600;margin-bottom:8px;padding-right:40px}
+.edu-card .school{color:var(--blue);font-size:14px;font-weight:500}
+.edu-card .years{font-family:var(--font-mono);font-size:12px;color:var(--muted);margin-top:10px;letter-spacing:.08em}
+.edu-card p{font-size:13.5px;color:var(--muted);margin-top:12px}
+
+/* ---------- languages ---------- */
+.lang-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.lang-card{
+  border:1px solid var(--line);border-radius:var(--radius);padding:24px;
+  background:linear-gradient(180deg,rgba(148,163,184,.04),rgba(148,163,184,.01));
+  transition:transform .3s,border-color .3s;
+}
+.lang-card:hover{transform:translateY(-4px);border-color:var(--line-strong)}
+.lang-name{font-family:var(--font-display);font-weight:600;font-size:16px;display:flex;align-items:center;gap:10px}
+.lang-flag{font-size:19px;line-height:1}
+.lang-lvl{font-size:12.5px;color:var(--muted);margin-top:6px}
+.lang-bar{margin-top:16px;height:4px;border-radius:99px;background:rgba(148,163,184,.14);overflow:hidden}
+.lang-bar i{display:block;height:100%;border-radius:99px;width:0;background:linear-gradient(90deg,var(--blue),#9db9ff);transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+.in .lang-bar i{width:var(--w)}
+
+/* ---------- contact ---------- */
+.contact-wrap{
+  border:1px solid var(--line-strong);border-radius:28px;position:relative;overflow:hidden;
+  background:
+    radial-gradient(90% 120% at 15% 0%,rgba(255,182,72,.10),transparent 55%),
+    radial-gradient(70% 100% at 90% 100%,rgba(91,140,255,.08),transparent 60%),
+    linear-gradient(165deg,#101826,#0a0f18);
+  padding:70px 60px;text-align:center;
+}
+.contact-wrap .corner{position:absolute;width:26px;height:26px;border:2px solid rgba(255,182,72,.45)}
+.contact-wrap .corner.tl{top:16px;left:16px;border-right:0;border-bottom:0}
+.contact-wrap .corner.br{bottom:16px;right:16px;border-left:0;border-top:0}
+.contact-wrap h2{
+  font-family:var(--font-display);font-weight:700;font-size:clamp(30px,4.5vw,50px);
+  letter-spacing:-.02em;line-height:1.1;
+}
+.contact-wrap h2 .grad{background:linear-gradient(100deg,var(--accent),#ffe0ae);-webkit-background-clip:text;background-clip:text;color:transparent}
+.contact-wrap p{color:var(--muted);max-width:520px;margin:18px auto 0;font-size:15.5px}
+.contact-btns{display:flex;gap:14px;justify-content:center;margin-top:36px;flex-wrap:wrap}
+.contact-rows{display:flex;justify-content:center;gap:14px;margin-top:40px;flex-wrap:wrap}
+.c-row{
+  display:flex;align-items:center;gap:12px;font-size:13.5px;color:var(--ink-soft);
+  border:1px solid var(--line);border-radius:999px;padding:11px 20px;background:rgba(10,14,20,.5);
+  text-decoration:none;transition:border-color .25s,color .25s,transform .25s;
+  font-family:var(--font-mono);
+}
+.c-row svg{width:15px;height:15px;color:var(--accent)}
+a.c-row:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+
+footer{padding:56px 0 40px;text-align:center}
+footer .logo{justify-content:center;margin-bottom:16px}
+footer p{color:var(--muted);font-size:12.5px;font-family:var(--font-mono);letter-spacing:.06em}
+
+/* ---------- responsive ---------- */
+@media (max-width:980px){
+  .hero-inner{grid-template-columns:1fr;gap:48px}
+  .hero-card{max-width:440px;margin:0 auto;width:100%}
+  .about-grid{grid-template-columns:1fr;gap:40px}
+  .skills-grid{grid-template-columns:repeat(2,1fr)}
+  .edu-grid{grid-template-columns:1fr;max-width:560px}
+  .lang-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:640px){
+  section{padding:80px 0 20px}
+  .hero{padding-top:120px}
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+  .skills-grid{grid-template-columns:1fr}
+  .lang-grid{grid-template-columns:1fr 1fr}
+  .contact-wrap{padding:52px 26px}
+  .nav-links,.nav-cta{display:none}
+  .burger{display:flex}
+  .nav-links.open{
+    display:flex;position:fixed;inset:64px 0 auto 0;flex-direction:column;
+    background:rgba(7,9,13,.97);backdrop-filter:blur(16px);
+    padding:18px 28px 26px;border-bottom:1px solid var(--line);gap:4px;
+  }
+  .nav-links.open a{display:block;padding:13px 14px;font-size:15px}
+  .tl-head h3{font-size:17px}
+  .tl-period{margin-left:0}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow one"></div>
+<div class="bg-glow two"></div>
+<div class="bg-noise"></div>
+
+<!-- ============ NAV ============ -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a class="logo" href="#top">
+      <div class="logo-mark">SD</div>
+      <div class="logo-text">Sarathkumar <span>Desappan</span></div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#languages">Languages</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="mailto:sharathcool22@gmail.com">Hire Me</a>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="container hero-inner">
+    <div>
+      <div class="hero-kicker"><span class="pulse"></span>OPEN TO OPPORTUNITIES · TOKYO, JAPAN</div>
+      <h1>DESAPPAN<br><span class="grad">SARATHKUMAR</span></h1>
+      <div class="hero-role">
+        <div class="role-line">
+          <span>Mechanical Engineer</span><span class="dot"></span>
+          <span>CAD &amp; Design</span>
+        </div>
+        <div class="role-focus">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          Robotics Hardware &amp; Automation
+        </div>
+      </div>
+      <p class="hero-bio">
+        Mechanical and CAD professional with 11+ years spanning design, manufacturing,
+        assembly and automotive maintenance — from Indian plants to Japanese factories.
+        Now applying that hands-on mechanical expertise to robotics hardware and automation systems.
+      </p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#experience">
+          View Experience
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="mailto:sharathcool22@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          Get in Touch
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><b>11<i>+</i></b><small>Years Experience</small></div>
+        <div class="stat"><b>5</b><small>Companies</small></div>
+        <div class="stat"><b>2</b><small>Countries</small></div>
+        <div class="stat"><b>4</b><small>Languages</small></div>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="corner tl"></div><div class="corner tr"></div>
+      <div class="corner bl"></div><div class="corner br"></div>
+      <div class="card-top">
+        <span class="rec">PROFILE.SD</span>
+        <span>REV 2026.09</span>
+      </div>
+      <div class="avatar-ring">
+        <div class="avatar"><img src="sarath.jpg" alt="Portrait of Sarathkumar Desappan"></div>
+      </div>
+      <div class="card-name">Sarathkumar Desappan</div>
+      <div class="card-role">Mechanical Design / CAD Engineer</div>
+      <div class="card-meta">
+        <div class="meta-row"><span>Location</span><b>Tokyo · Japan</b></div>
+        <div class="meta-row"><span>Experience</span><b>2014 — Present</b></div>
+        <div class="meta-row"><span>Focus</span><b>Robotics Hardware</b></div>
+        <div class="meta-row"><span>Visa Status</span><b class="gold">Valid till 29-JUN-2029</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track" id="marqueeTrack">
+      <span>AutoCAD 2D &amp; 3D</span><span>CATIA</span><span>PRO-E / Creo</span><span>Ansys</span>
+      <span>TurboCAD</span><span>IJCAD</span><span>APQP · FMEA · PPAP</span><span>Conveyor Systems</span>
+      <span>Structural Design</span><span>OBD Diagnostics</span><span>Robotics Hardware</span><span>Automation</span>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-tag">01 — About</div>
+      <h2 class="sec-title">Precision in design.<br>Discipline in execution.</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          I am a <strong>mechanical and CAD professional</strong> with hands-on experience in mechanical design,
+          structural components, manufacturing, assembly and automotive maintenance. My career has moved
+          through process engineering, vehicle assembly, heavy truck maintenance and industrial conveyor
+          and machine design — building a rare blend of <strong>desk-side CAD skill and shop-floor intuition</strong>.
+        </p>
+        <p>
+          Skilled in AutoCAD with practical depth in mechanical drawings, mechanisms, troubleshooting and
+          production processes, I have worked closely with manufacturing and engineering teams in both
+          India and Japan. I am now looking to apply my mechanical expertise to
+          <strong>robotics hardware and automation systems</strong>.
+        </p>
+        <ul class="about-list">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            End-to-end ownership — from customer requirement to drawing, build and on-site verification
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            Personally assembles the machines he designs, validating designs in production
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            Six years in Japanese industry with business-level Japanese working environment
+          </li>
+        </ul>
+      </div>
+      <div class="fact-card reveal">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          At a Glance
+        </h3>
+        <div class="fact"><span>Full Name</span><b>Desappan Sarathkumar</b></div>
+        <div class="fact"><span>Based In</span><b>Saitama · Japan</b></div>
+        <div class="fact"><span>Experience</span><b>2014 — Present</b></div>
+        <div class="fact"><span>Core Tools</span><b>AutoCAD · CATIA · Ansys</b></div>
+        <div class="fact"><span>Domains</span><b>Design · Manufacturing · Assembly</b></div>
+        <div class="fact"><span>Visa Status</span><b class="gold">Work visa · till 29-Jun-2029</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section id="skills">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-tag">02 — Skills</div>
+      <h2 class="sec-title">Technical toolbox</h2>
+      <p class="sec-sub">CAD, analysis and manufacturing-process skills sharpened across 11 years on the shop floor and the design desk.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21 12 3l9 18H3z"/><path d="M7.5 14h9M9.8 10h4.4"/></svg>
+        </div>
+        <h3>AutoCAD 2D &amp; 3D</h3>
+        <p>Manufacturing, assembly &amp; layout drawings; mechanical drawings, modifications and drawing optimization.</p>
+        <div class="skill-lvl"><i style="--w:95%"></i></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5z"/><path d="M12 22V12M12 12 21 7M12 12 3 7"/></svg>
+        </div>
+        <h3>CATIA</h3>
+        <p>Surface and part modeling for product design and structural components.</p>
+        <div class="skill-lvl"><i style="--w:85%"></i></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M12 3v5.5M12 15.5V21M3 12h5.5M15.5 12H21"/></svg>
+        </div>
+        <h3>PRO-E / Creo</h3>
+        <p>3D parametric modeling and product design work from dedicated product-design training.</p>
+        <div class="skill-lvl"><i style="--w:80%"></i></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 4 8-8"/><path d="M14 8h6v6"/></svg>
+        </div>
+        <h3>Ansys</h3>
+        <p>Finite element and structural analysis for design validation.</p>
+        <div class="skill-lvl"><i style="--w:75%"></i></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 22h8M12 18v4"/></svg>
+        </div>
+        <h3>TurboCAD · IJCAD</h3>
+        <p>Current daily tools — frames, buckets and structural component design for industrial machines.</p>
+        <div class="skill-lvl"><i style="--w:90%"></i></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a5 5 0 0 0-6.9 6.9L3 18v3h3l4.8-4.8a5 5 0 0 0 6.9-6.9l-3.2 3.2-2.8-2.8 3-2.4z"/></svg>
+        </div>
+        <h3>Shop-Floor Craft</h3>
+        <p>Assembly &amp; installation, OBD diagnostics, troubleshooting, quality inspection, production safety.</p>
+        <div class="skill-lvl"><i style="--w:92%"></i></div>
+      </div>
+    </div>
+    <div class="chips reveal">
+      <span class="chip">APQP</span><span class="chip">FMEA</span><span class="chip">PPAP</span>
+      <span class="chip">Process Flow Drawings</span><span class="chip">Inspection Instructions</span>
+      <span class="chip">Technical Drawings</span><span class="chip">OBD Diagnostics</span>
+      <span class="chip">Conveyor Systems</span><span class="chip">Microsoft Office</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE ============ -->
+<section id="experience">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-tag">03 — Experience</div>
+      <h2 class="sec-title">A decade across<br>the workshop &amp; the desk</h2>
+    </div>
+    <div class="timeline">
+
+      <div class="tl-item current reveal">
+        <div class="tl-node"></div>
+        <div class="tl-card">
+          <div class="tl-head">
+            <h3>ITO SHOUKAI CO., LTD.</h3>
+            <span class="tl-period">2025 — Present</span>
+          </div>
+          <div class="tl-sub">Mechanical Design / CAD Engineer · <span class="loc">Tokyo, Japan</span></div>
+          <ul>
+            <li>Designing <strong>frames, buckets and structural components</strong> in TurboCAD, from customer requirements through drawing modification and optimization.</li>
+            <li><strong>Personally assembles the complete machines</strong> after preparing the drawings — validating designs during production.</li>
+            <li>Collaborates with manufacturing teams and runs on-site checks to raise design accuracy and product quality.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-node"></div>
+        <div class="tl-card">
+          <div class="tl-head">
+            <h3>HANNA CO., LTD.</h3>
+            <span class="tl-period">2023 — 2024</span>
+          </div>
+          <div class="tl-sub">Mechanical Design Engineer · <span class="loc">Osaka, Japan</span></div>
+          <ul>
+            <li>Designed <strong>2D manufacturing, assembly and layout drawings</strong> for industrial conveyor systems in AutoCAD/IJCAD, including modifications to customer specifications.</li>
+            <li>Visited customer sites and <strong>personally carried out conveyor assembly and installation</strong>, ensuring equipment matched the CAD drawings and layout.</li>
+            <li>Worked with engineers, factory staff and customers to resolve on-site issues and improve the design–installation loop.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-node"></div>
+        <div class="tl-card">
+          <div class="tl-head">
+            <h3>UD TRUCKS CO., LTD.</h3>
+            <span class="tl-period">2019 — 2022</span>
+          </div>
+          <div class="tl-sub">Truck Mechanic / Maintenance Technician · <span class="loc">Akita, Japan</span></div>
+          <ul>
+            <li>End-to-end mechanical maintenance and repair of complete UD trucks — <strong>engine, transmission, chassis, braking systems, underbody</strong>.</li>
+            <li>Handled routine and complex work: oil changes, component and <strong>transmission replacement</strong>, inspection, troubleshooting and repair.</li>
+            <li>Performed <strong>OBD diagnostic scanning</strong> to identify vehicle issues and support accurate repairs.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-node"></div>
+        <div class="tl-card">
+          <div class="tl-head">
+            <h3>RENAULT NISSAN AUTOMOTIVE INDIA PVT LTD</h3>
+            <span class="tl-period">2016 — 2018</span>
+          </div>
+          <div class="tl-sub">Automotive Assembly &amp; Hardware Technician · <span class="loc">India</span></div>
+          <ul>
+            <li>Vehicle assembly operations — <strong>assembly and integration of mechanical and automotive components</strong> to technical drawings, work instructions and production standards.</li>
+            <li>Component inspection, assembly verification and basic troubleshooting — practical hardware integration, quality control and systematic problem-solving.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-node"></div>
+        <div class="tl-card">
+          <div class="tl-head">
+            <h3>MM FORGINGS LIMITED</h3>
+            <span class="tl-period">2014 — 2016</span>
+          </div>
+          <div class="tl-sub">Process Design Engineer · <span class="loc">India</span></div>
+          <ul>
+            <li>Prepared <strong>mechanical drawings and manufacturing process documentation</strong> in AutoCAD, supporting production and engineering requirements.</li>
+            <li>Managed <strong>APQP, FMEA and PPAP</strong> activities — process flow drawings, inspection instructions, SOI, operator/patrol reports.</li>
+            <li>Partnered with production and quality teams so processes, inspections and documentation met engineering and customer requirements.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ EDUCATION ============ -->
+<section id="education">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-tag">04 — Education</div>
+      <h2 class="sec-title">Foundation</h2>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-num">01</div>
+        <h3>Diploma in Mechanical Engineering</h3>
+        <div class="school">Hindustan Institute of Engineering Technology</div>
+        <div class="years">2011 — 2014 · INDIA</div>
+        <p>Core mechanical engineering fundamentals — design, materials, manufacturing and workshop practice.</p>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-num">02</div>
+        <h3>Master Diploma — Product Design &amp; Analysis</h3>
+        <div class="school">CADD Centre, India</div>
+        <div class="years">2014 — 2016 · INDIA</div>
+        <p>Advanced CAD/CAM and product design &amp; analysis specialization — the bridge into professional CAD work.</p>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-num">03</div>
+        <h3>Japanese Language Studies</h3>
+        <div class="school">Nihon Edutech Pvt. Limited</div>
+        <div class="years">2018 — 2019 · INDIA</div>
+        <p>Intensive Japanese language preparation — the key to six years of industrial work in Japan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LANGUAGES ============ -->
+<section id="languages">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-tag">05 — Languages</div>
+      <h2 class="sec-title">Bilingual at work</h2>
+    </div>
+    <div class="lang-grid">
+      <div class="lang-card reveal">
+        <div class="lang-name"><span class="lang-flag">🇯🇵</span>Japanese</div>
+        <div class="lang-lvl">6 years in Japanese industry</div>
+        <div class="lang-bar"><i style="--w:85%"></i></div>
+      </div>
+      <div class="lang-card reveal">
+        <div class="lang-name"><span class="lang-flag">🇬🇧</span>English</div>
+        <div class="lang-lvl">Professional working proficiency</div>
+        <div class="lang-bar"><i style="--w:90%"></i></div>
+      </div>
+      <div class="lang-card reveal">
+        <div class="lang-name"><span class="lang-flag">🇮🇳</span>Tamil</div>
+        <div class="lang-lvl">Native</div>
+        <div class="lang-bar"><i style="--w:100%"></i></div>
+      </div>
+      <div class="lang-card reveal">
+        <div class="lang-name"><span class="lang-flag">🇮🇳</span>Hindi</div>
+        <div class="lang-lvl">Working proficiency</div>
+        <div class="lang-bar"><i style="--w:80%"></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-wrap reveal">
+      <div class="corner tl"></div><div class="corner br"></div>
+      <div class="sec-tag" style="justify-content:center">06 — Contact</div>
+      <h2>Let's build something<br><span class="grad">mechanically precise.</span></h2>
+      <p>Open to robotics hardware, automation and mechanical design roles in Japan. If you need an engineer who can draw it, build it and fix it on site — let's talk.</p>
+      <div class="contact-btns">
+        <a class="btn btn-primary" href="mailto:sharathcool22@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          Email Me
+        </a>
+        <a class="btn btn-ghost" href="tel:+819092783025">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Call
+        </a>
+      </div>
+      <div class="contact-rows">
+        <a class="c-row" href="mailto:sharathcool22@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          sharathcool22@gmail.com
+        </a>
+        <a class="c-row" href="tel:+819092783025">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          070-9278-3025
+        </a>
+        <div class="c-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Saitama, Japan
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+    <a class="logo" href="#top">
+      <div class="logo-mark">SD</div>
+      <div class="logo-text">Sarathkumar <span>Desappan</span></div>
+    </a>
+    <p>© 2026 DESAPPAN SARATHKUMAR · MECHANICAL ENGINEER · TOKYO, JAPAN</p>
+  </div>
+</footer>
+
+<script>
+// nav scroll state
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 12), {passive:true});
+
+// mobile menu
+const burger = document.getElementById('burger');
+const links = document.getElementById('navLinks');
+burger.addEventListener('click', () => links.classList.toggle('open'));
+links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+// duplicate marquee for seamless loop
+const track = document.getElementById('marqueeTrack');
+track.innerHTML += track.innerHTML;
+
+// reveal on scroll + skill/lang bar fills
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, {threshold:.15});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// active nav link
+const sections = [...document.querySelectorAll('section[id], header[id]')];
+const navA = [...links.querySelectorAll('a')];
+const spy = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navA.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+    }
+  });
+}, {rootMargin:'-40% 0px -55% 0px'});
+sections.forEach(s => spy.observe(s));
+</script>
+</body>
+</html>
